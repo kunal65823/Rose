@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Rose Day ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* ---------- COMMON ---------- */
+.hidden {
+    display: none;
+}
+
+/* ---------- PAGE 1 ---------- */
+.page1 {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+}
+
+h1 {
+    margin-bottom: 10px;
+    font-size: 2.2rem;
+}
+
+.dog {
+    font-size: 120px;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.rose-mouth {
+    position: absolute;
+    font-size: 40px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+    min-height: 70px;
+}
+
+.tap {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background: #ff2f5e;
+}
+
+/* ---------- PAGE 2 ---------- */
+.page2 {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.photo-box {
+    width: 280px;
+    height: 380px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-text {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* ---------- ROSES ---------- */
+.rose {
+    position: absolute;
+    font-size: 25px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ---------- PAGE 1 ---------- -->
+<div class="page1" id="page1">
+    <div class="container" onclick="showLine()">
+        <h1>Happy Rose Day 🌹</h1>
+
+        <div class="dog">
+            🐶
+            <div class="rose-mouth">🌹</div>
+        </div>
+
+        <div class="message" id="message">
+            Tap anywhere to see something cute ❤️
+        </div>
+
+        <div class="tap">(Tap the screen 💕)</div>
+
+        <button onclick="goNext(event)">Next ❤️</button>
+    </div>
+</div>
+
+<!-- ---------- PAGE 2 ---------- -->
+<div class="page2 hidden" id="page2">
+    <h1>You 🌹</h1>
+
+    <div class="photo-box" onclick="nextPhoto()">
+        <img id="photo" src="WhatsApp Image 2025-12-04 at 11.16.37 AM.jpeg">
+    </div>
+
+    <div class="photo-text">
+        Tap the photo 💖
+    </div>
+</div>
+
+<script>
+/* Shayari */
+const lines = [
+    "🌹 Tum ek rose ho, bouquet nahi chahiye ❤️",
+    "Tumhari smile ke saamne rose bhi sharma jaye 🌹",
+    "Ek rose nahi, poora garden bhi kam hai tumhare liye 💕",
+    "Tum paas ho toh har din Rose Day lagta hai ❤️",
+    "Like this rose, my feelings are only for you 🌹"
+];
+let lineIndex = 0;
+
+function showLine() {
+    document.getElementById("message").innerText = lines[lineIndex];
+    lineIndex = (lineIndex + 1) % lines.length;
+}
+
+/* Next page */
+function goNext(e) {
+    e.stopPropagation();
+    document.getElementById("page1").classList.add("hidden");
+    document.getElementById("page2").classList.remove("hidden");
+}
+
+/* Photos */
+const photos = [
+    "WhatsApp Image 2025-12-04 at 11.16.37 AM.jpeg",
+    "WhatsApp Image 2025-12-04 at 11.16.38 AM.jpeg"
+];
+let photoIndex = 0;
+
+function nextPhoto() {
+    photoIndex = (photoIndex + 1) % photos.length;
+    document.getElementById("photo").src = photos[photoIndex];
+}
+
+/* Floating roses */
+function createRose() {
+    const rose = document.createElement("div");
+    rose.classList.add("rose");
+    rose.innerText = "🌹";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(rose);
+
+    setTimeout(() => rose.remove(), 7000);
+}
+setInterval(createRose, 400);
+</script>
+
+</body>
+</html>
